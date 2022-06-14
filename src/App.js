@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Intro from "./components/Intro";
 import Quiz from "./components/Quiz";
 import {decode} from "html-entities"
+import Confetti from "react-confetti"
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState(() => ({
@@ -12,6 +13,7 @@ export default function App() {
   const [quiz, setQuiz] = useState(() => []);
   const [gameOn, setGameOn] = useState(() => true);
   const [count, setCount] = useState(() => 0);
+  const [score, setScore] = useState(() => 0);
 
   useEffect(() => {
     fetch("https://opentdb.com/api.php?amount=5&category=9&type=multiple")
@@ -28,6 +30,7 @@ export default function App() {
             userAnswer: "",
           };
           quizArray.push(datum);
+          console.log(datum.answer)
         });
         setQuiz(quizArray);
       });
@@ -65,10 +68,10 @@ export default function App() {
     const allUserAnswers = quiz.map((item) => item.userAnswer);
     const answers = quiz.map((item) => item.answer);
 
-    let score = 0;
+    
     for (let i = 0; i < allUserAnswers.length; i++) {
       if (allUserAnswers[i] === answers[i]) {
-        score += 1;
+        setScore(prev => prev + 1);
       }
     }
     setGameOn((prev) => !prev);
@@ -96,6 +99,7 @@ export default function App() {
       )}
       {currentPage.quiz && (
         <main className="quiz-main">
+          {score === 5 && <Confetti />}
           <Quiz
             onClick={switchPages}
             quiz={quiz}
@@ -103,6 +107,7 @@ export default function App() {
             checkAnswers={checkAnswers}
             gameOn={gameOn}
             playAgain={playAgain}
+            score={score}
           />
         </main>
       )}

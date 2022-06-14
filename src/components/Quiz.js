@@ -35,7 +35,7 @@ export default function Quiz(props) {
       )}
       {!props.gameOn && (
         <h5 className="score">
-          You scored {props.quiz[0].score}/{props.quiz.length}
+          You scored {props.score}/{props.quiz.length}
         </h5>
       )}
       {!props.gameOn && (
