@@ -33,6 +33,8 @@ body,
     background-color: #F5F7FB;
     position: relative;
     z-index: 1000;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .header {
@@ -98,7 +100,7 @@ body,
     content: url("/public/images/blob-baby.png");
     bottom: 0;
     left: 0;
-    z-index: 1;
+    z-index: -1;
 }
 
 fieldset {
